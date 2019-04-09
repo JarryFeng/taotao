@@ -6,18 +6,12 @@ import java.util.Date;
 public class TbItemParam implements Serializable {
     private Long id;
 
-    /**
-     * 商品类目ID
-     */
     private Long itemCatId;
 
     private Date created;
 
     private Date updated;
 
-    /**
-     * 参数数据，格式为json格式
-     */
     private String paramData;
 
     private static final long serialVersionUID = 1L;
@@ -60,21 +54,5 @@ public class TbItemParam implements Serializable {
 
     public void setParamData(String paramData) {
         this.paramData = paramData == null ? null : paramData.trim();
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", id=").append(id);
-        sb.append(", itemCatId=").append(itemCatId);
-        sb.append(", created=").append(created);
-        sb.append(", updated=").append(updated);
-        sb.append(", paramData=").append(paramData);
-        sb.append(", serialVersionUID=").append(serialVersionUID);
-        sb.append("]");
-        return sb.toString();
     }
 }

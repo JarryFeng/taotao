@@ -4,39 +4,18 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class TbCart implements Serializable {
-    /**
-     * 自增ID
-     */
     private Long id;
 
-    /**
-     * 用户ID
-     */
     private Long userId;
 
-    /**
-     * 商品ID
-     */
     private Long itemId;
 
-    /**
-     * 商品标题
-     */
     private String itemTitle;
 
-    /**
-     * 商品主图
-     */
     private String itemImage;
 
-    /**
-     * 商品价格，单位为：分
-     */
     private Long itemPrice;
 
-    /**
-     * 购买数量
-     */
     private Integer num;
 
     private Date created;
@@ -115,25 +94,5 @@ public class TbCart implements Serializable {
 
     public void setUpdated(Date updated) {
         this.updated = updated;
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", id=").append(id);
-        sb.append(", userId=").append(userId);
-        sb.append(", itemId=").append(itemId);
-        sb.append(", itemTitle=").append(itemTitle);
-        sb.append(", itemImage=").append(itemImage);
-        sb.append(", itemPrice=").append(itemPrice);
-        sb.append(", num=").append(num);
-        sb.append(", created=").append(created);
-        sb.append(", updated=").append(updated);
-        sb.append(", serialVersionUID=").append(serialVersionUID);
-        sb.append("]");
-        return sb.toString();
     }
 }

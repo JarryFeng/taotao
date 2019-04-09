@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+		PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+		"http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+
+	<!-- <properties resource="generator/generator.properties"/>-->
+
+
+	<context id="mysqlTables" targetRuntime="MyBatis3Simple">
+
+		<!-- JavaBean 实现 序列化 接口 -->
+		<plugin type="org.mybatis.generator.plugins.SerializablePlugin">
+		</plugin>
+
+		<!--去除注释  -->
+		<commentGenerator>
+			<property name="suppressAllComments" value="true"/>
+		</commentGenerator>
+
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+						connectionURL="jdbc:mysql://localhost:3306/taotao"
+						userId="root"
+						password="123456"/>
+
+
+		<!--指定生成的类型为java类型，避免数据库中number等类型字段 -->
+
+		<javaTypeResolver>
+
+			<property name="forceBigDecimals" value="false"/>
+
+		</javaTypeResolver>
+
+
+		<!--自动生成的实体的存放包路径 -->
+
+		<javaModelGenerator targetPackage="a.com.jarry.pojo"
+
+							targetProject="/src/main/java">
+
+			<property name="enableSubPackages" value="true"/>
+
+			<property name="trimStrings" value="true"/>
+
+		</javaModelGenerator>
+
+
+		<!--自动生成的*Mapper.xml文件存放路径 -->
+
+		<sqlMapGenerator targetPackage="a.com.jarry.mapper.xml" targetProject="/src/main/java">
+
+			<property name="enableSubPackages" value="true"/>
+
+		</sqlMapGenerator>
+
+
+		<!--自动生成的*Mapper.java存放路径 -->
+
+		<javaClientGenerator type="XMLMAPPER"
+
+							 targetPackage="a.com.jarry.mapper" targetProject="/src/main/java">
+
+			<property name="enableSubPackages" value="true"/>
+
+		</javaClientGenerator>
+
+
+		<!--<table  tableName="tbl_user" >
+
+         &lt;!&ndash;<property name="user" value="true"/>&ndash;&gt;
+
+        </table>
+        <table  tableName="tbl_log">
+
+          <generatedKey  column="ID"  sqlStatement="selectuuid_short()"
+
+                         identity="false"/>
+
+        </table>-->
+		<!-- <table tableName="%">
+
+             <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+
+         </table>-->
+
+		<table schema="" tableName="tb_cart"></table>
+		<table schema="" tableName="tb_content"></table>
+		<table schema="" tableName="tb_content_category"></table>
+		<table schema="" tableName="tb_item"></table>
+		<table schema="" tableName="tb_item_cat"></table>
+		<table schema="" tableName="tb_item_desc"></table>
+		<table schema="" tableName="tb_item_param"></table>
+		<table schema="" tableName="tb_item_param_item"></table>
+		<table schema="" tableName="tb_order"></table>
+		<table schema="" tableName="tb_order_item"></table>
+		<table schema="" tableName="tb_order_shipping"></table>
+		<table schema="" tableName="tb_user"></table>
+
+
+	</context>
+
+
+</generatorConfiguration>
