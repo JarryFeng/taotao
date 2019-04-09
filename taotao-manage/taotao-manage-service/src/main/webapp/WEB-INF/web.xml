@@ -4,4 +4,26 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
+
+  <!-- 初始化spring容器-spring父容器，主要是service -->
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>classpath:spring/applicationContext-*.xml</param-value>
+  </context-param>
+
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+
+  <!-- 初始化spring容器-spring子容器，主要是action、controller,子容器能访问父容器里面定义的bean -->
+  <!--<servlet>
+    <servlet-name>spring-mvc</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>spring-mvc</servlet-name>
+    <url-pattern>/</url-pattern>
+  </servlet-mapping>-->
+
 </web-app>

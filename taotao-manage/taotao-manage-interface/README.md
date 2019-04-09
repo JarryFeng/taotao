@@ -1,0 +1,1 @@
+###该工程主要存放service接口，接口的实现类由taotao-manage-service工程下的com.jarry.service.impl中存放

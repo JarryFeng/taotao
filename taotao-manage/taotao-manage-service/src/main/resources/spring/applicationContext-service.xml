@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+                           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+                           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+
+
+                           http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd
+    ">
+
+    <!-- 包扫描路径 -->
+    <context:component-scan base-package="com.jarry.service" />
+
+    <!-- 事务管理器 -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="datasource" />
+    </bean>
+
+    <!-- 通知 -->
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="save*" propagation="REQUIRED"/>
+            <tx:method name="insert*" propagation="REQUIRED" />
+            <tx:method name="add*" propagation="REQUIRED" />
+            <tx:method name="create*" propagation="REQUIRED" />
+            <tx:method name="delete*" propagation="REQUIRED" />
+            <tx:method name="update*" propagation="REQUIRED" />
+            <tx:method name="find*" propagation="SUPPORTS" read-only="true"/>
+            <tx:method name="select*" propagation="SUPPORTS" read-only="true"/>
+            <tx:method name="get*" propagation="SUPPORTS" read-only="true"/>
+        </tx:attributes>
+    </tx:advice>
+
+    <!-- 切面 -->
+    <!-- 表达式execution详解：第一个*表示返回值，com.jarry.service..表示service包以及子包，*Service(..)表示任何以Service结尾的类的所有方法 -->
+    <aop:config>
+        <aop:advisor advice-ref="txAdvice" pointcut="execution(* com.jarry.service..*Service(..))"/>
+    </aop:config>
+
+
+
+    <!-- 发布dubbo服务 -->
+    <!-- 提供方应用信息，用于计算依赖关系 -->
+    <dubbo:application name="taotao-manager" />
+    <!-- 注册中心地址，使用zookeeper协议 -->
+    <dubbo:registry protocol="zookeeper" address="127.0.0.1:2181" />
+    <!-- 用dubbo协议在20880端口暴露服务 -->
+    <dubbo:protocol name="dubbo" port="20880" />
+    <!-- 申明需要暴露的服务接口 -->
+    <dubbo:service interface="com.jarry.service.ItemService" ref="itemServiceImpl" />
+</beans>
