@@ -37,7 +37,7 @@
 
 		<javaModelGenerator targetPackage="a.com.jarry.pojo"
 
-							targetProject="/src/main/java">
+							targetProject="src/main/java">
 
 			<property name="enableSubPackages" value="true"/>
 
@@ -48,7 +48,7 @@
 
 		<!--自动生成的*Mapper.xml文件存放路径 -->
 
-		<sqlMapGenerator targetPackage="a.com.jarry.mapper.xml" targetProject="/src/main/java">
+		<sqlMapGenerator targetPackage="a.com.jarry.mapper.xml" targetProject="src/main/java">
 
 			<property name="enableSubPackages" value="true"/>
 
@@ -59,7 +59,7 @@
 
 		<javaClientGenerator type="XMLMAPPER"
 
-							 targetPackage="a.com.jarry.mapper" targetProject="/src/main/java">
+							 targetPackage="a.com.jarry.mapper" targetProject="src/main/java">
 
 			<property name="enableSubPackages" value="true"/>
 

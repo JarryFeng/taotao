@@ -118,7 +118,7 @@
             </dependency>
             <!-- MySql -->
             <dependency>
-                <groupId>mysql</groupId>
+                <groupId>MYSQL</groupId>
                 <artifactId>mysql-connector-java</artifactId>
                 <version>${mysql.version}</version>
             </dependency>
