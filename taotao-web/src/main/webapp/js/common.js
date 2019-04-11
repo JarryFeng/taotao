@@ -43,7 +43,7 @@ var TT = TAOTAO = {
 	},
 	// 格式化价格
 	formatPrice : function(val,row){
-		return (val/1000).toFixed(2);
+		return (val/100).toFixed(2);
 	},
 	// 格式化商品的状态
 	formatItemStatus : function formatStatus(val,row){
@@ -104,8 +104,8 @@ var TT = TAOTAO = {
     
     // 初始化选择类目组件
     initItemCat : function(data){
-    	$(".selectItemCat").each(function(i,e){
-    		var _ele = $(e);
+    	$(".selectItemCat").each(function(i,e){//循环下标i,元素对象e
+    		var _ele = $(e);//将dom节点e转换成jquery对象
     		if(data && data.cid){
     			_ele.after("<span style='margin-left:10px;'>"+data.cid+"</span>");
     		}else{
@@ -116,14 +116,14 @@ var TT = TAOTAO = {
     			.window({
     				width:'500',
     			    height:"450",
-    			    modal:true,
+    			    modal:true,//是否有遮罩
     			    closed:true,
     			    iconCls:'icon-save',
     			    title:'选择类目',
     			    onOpen : function(){
     			    	var _win = this;
     			    	$("ul",_win).tree({
-    			    		url:'item/cat/list',
+    			    		url:'itemCategory/list',
     			    		animate:true,
     			    		onClick : function(node){
     			    			if($(this).tree("isLeaf",node.target)){

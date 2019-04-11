@@ -2,16 +2,13 @@ package com.jarry.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.jarry.easyui.pojo.EasyUIGridResult;
+import com.jarry.easyui.pojo.TaotaoResult;
 import com.jarry.pojo.TbItem;
+import com.jarry.pojo.TbItemDesc;
 import com.jarry.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author fengzheng
@@ -36,6 +33,20 @@ public class ItemController {
         return itemSerivce.getTbItemById(itemId);
     }
 
+    /**
+     * 添加商品信息
+     *
+     * @param tbItem
+     * @return
+     */
+    @RequestMapping(value = "/item/save", method = RequestMethod.POST)
+    @ResponseBody
+    public TaotaoResult addTbItem(TbItem tbItem, String desc) {
+        itemSerivce.addTbItem(tbItem, desc);
+
+        return TaotaoResult.ok();
+    }
+
 
     /**
      * 商品列表
@@ -53,5 +64,12 @@ public class ItemController {
         easyUIGridResult.setRows(pageInfo.getList());
         easyUIGridResult.setTotal(pageInfo.getTotal());
         return easyUIGridResult;
+    }
+
+    @RequestMapping("/itemdesc/{id}")
+    @ResponseBody
+    public TaotaoResult getTbItemDesc(@PathVariable Long id) {
+        TbItemDesc tbItemDesc = itemSerivce.getTbItemDescById(id);
+        return TaotaoResult.ok(tbItemDesc);
     }
 }

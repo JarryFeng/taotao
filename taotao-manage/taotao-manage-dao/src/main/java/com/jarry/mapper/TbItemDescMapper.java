@@ -8,4 +8,6 @@ public interface TbItemDescMapper {
     int insert(TbItemDesc record);
 
     List<TbItemDesc> selectAll();
+
+    TbItemDesc selectByItemId(Long itemId);
 }

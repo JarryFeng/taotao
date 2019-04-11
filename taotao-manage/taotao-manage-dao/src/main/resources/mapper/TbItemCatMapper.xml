@@ -1,46 +1,106 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.jarry.mapper.TbItemCatMapper" >
-  <resultMap id="BaseResultMap" type="com.jarry.pojo.TbItemCat" >
-    <id column="id" property="id" jdbcType="BIGINT" />
-    <result column="parent_id" property="parentId" jdbcType="BIGINT" />
-    <result column="name" property="name" jdbcType="VARCHAR" />
-    <result column="status" property="status" jdbcType="INTEGER" />
-    <result column="sort_order" property="sortOrder" jdbcType="INTEGER" />
-    <result column="is_parent" property="isParent" jdbcType="BIT" />
-    <result column="created" property="created" jdbcType="TIMESTAMP" />
-    <result column="updated" property="updated" jdbcType="TIMESTAMP" />
-  </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
-    delete from tb_item_cat
-    where id = #{id,jdbcType=BIGINT}
-  </delete>
-  <insert id="insert" parameterType="com.jarry.pojo.TbItemCat" >
-    insert into tb_item_cat (id, parent_id, name, 
-      status, sort_order, is_parent, 
-      created, updated)
-    values (#{id,jdbcType=BIGINT}, #{parentId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, 
-      #{status,jdbcType=INTEGER}, #{sortOrder,jdbcType=INTEGER}, #{isParent,jdbcType=BIT}, 
-      #{created,jdbcType=TIMESTAMP}, #{updated,jdbcType=TIMESTAMP})
-  </insert>
-  <update id="updateByPrimaryKey" parameterType="com.jarry.pojo.TbItemCat" >
-    update tb_item_cat
-    set parent_id = #{parentId,jdbcType=BIGINT},
-      name = #{name,jdbcType=VARCHAR},
-      status = #{status,jdbcType=INTEGER},
-      sort_order = #{sortOrder,jdbcType=INTEGER},
-      is_parent = #{isParent,jdbcType=BIT},
-      created = #{created,jdbcType=TIMESTAMP},
-      updated = #{updated,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=BIGINT}
-  </update>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select id, parent_id, name, status, sort_order, is_parent, created, updated
-    from tb_item_cat
-    where id = #{id,jdbcType=BIGINT}
-  </select>
-  <select id="selectAll" resultMap="BaseResultMap" >
-    select id, parent_id, name, status, sort_order, is_parent, created, updated
-    from tb_item_cat
-  </select>
+<mapper namespace="com.jarry.mapper.TbItemCatMapper">
+    <resultMap id="BaseResultMap" type="com.jarry.pojo.TbItemCat">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="parent_id" property="parentId" jdbcType="BIGINT"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="INTEGER"/>
+        <result column="sort_order" property="sortOrder" jdbcType="INTEGER"/>
+        <result column="is_parent" property="isParent" jdbcType="BIT"/>
+        <result column="created" property="created" jdbcType="TIMESTAMP"/>
+        <result column="updated" property="updated" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete
+        from tb_item_cat
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" parameterType="com.jarry.pojo.TbItemCat">
+        insert into tb_item_cat (id, parent_id, name,
+                                 status, sort_order, is_parent,
+                                 created, updated)
+        values (#{id,jdbcType=BIGINT}, #{parentId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR},
+                #{status,jdbcType=INTEGER}, #{sortOrder,jdbcType=INTEGER}, #{isParent,jdbcType=BIT},
+                #{created,jdbcType=TIMESTAMP}, #{updated,jdbcType=TIMESTAMP})
+    </insert>
+    <update id="updateByPrimaryKey" parameterType="com.jarry.pojo.TbItemCat">
+        update tb_item_cat
+        set parent_id  = #{parentId,jdbcType=BIGINT},
+            name       = #{name,jdbcType=VARCHAR},
+            status     = #{status,jdbcType=INTEGER},
+            sort_order = #{sortOrder,jdbcType=INTEGER},
+            is_parent  = #{isParent,jdbcType=BIT},
+            created    = #{created,jdbcType=TIMESTAMP},
+            updated    = #{updated,jdbcType=TIMESTAMP}
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select id,
+               parent_id,
+               name,
+               status,
+               sort_order,
+               is_parent,
+               created,
+               updated
+        from tb_item_cat
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+        select id,
+               parent_id,
+               name,
+               status,
+               sort_order,
+               is_parent,
+               created,
+               updated
+        from tb_item_cat
+    </select>
+
+    <select id="selectByCondition" resultMap="BaseResultMap" parameterType="com.jarry.pojo.TbItemCat">
+        select id,
+               parent_id,
+               name,
+               status,
+               sort_order,
+               is_parent,
+               created,
+               updated
+        from tb_item_cat
+       where 1=1
+            <if test="id != null and id != '' ">
+                and id = #{id}
+            </if>
+
+            <if test="parentId !=null ">
+                and parent_id = #{parentId,jdbcType=BIGINT}
+            </if>
+
+            <if test="name != null and name != '' ">
+                and name = #{name}
+            </if>
+
+            <if test="status != null">
+                and status = #{status}
+            </if>
+
+            <if test="sortOrder != null">
+                and sort_order = #{sortOrder}
+            </if>
+
+            <if test="isParent != null">
+                and is_parent = #{isParent}
+            </if>
+
+            <if test="created != null and created != '' ">
+                <![CDATA[ and created <= #{created} ]]>
+            </if>
+
+             <if test="updated != null and updated != '' ">
+                 <![CDATA[ and updated >= #{updated} ]]>
+            </if>
+
+    </select>
 </mapper>

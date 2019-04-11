@@ -14,4 +14,6 @@ public interface TbItemCatMapper {
     List<TbItemCat> selectAll();
 
     int updateByPrimaryKey(TbItemCat record);
+
+    List<TbItemCat> selectByCondition(TbItemCat tbItemCat);
 }

@@ -10,7 +10,7 @@
 	            <td>商品类目:</td>
 	            <td>
 	            	<a href="javascript:void(0)" class="easyui-linkbutton selectItemCat">选择类目</a>
-	            	<input type="hidden" name="cid" style="width: 280px;"></input>	
+	            	<input type="hidden" name="cid" style="width: 280px;"></input>
 	            </td>
 	        </tr>
 	        <tr>
@@ -69,6 +69,13 @@
 	$(function(){
 		//实例化编辑器
 		itemEditEditor = TAOTAO.createEditor("#itemeEditForm [name=desc]");
+
+		//获取商品类别名称
+        var cid = $("[name=cid]").val();
+
+        $.getJSON('/itemCategory/list/'+ cid,function(_data){
+           $("#itemCateName").val(_data);
+        });
 	});
 	
 	function submitForm(){

@@ -17,4 +17,9 @@
     select item_id, created, updated, item_desc
     from tb_item_desc
   </select>
+
+  <select id="selectByItemId" resultMap="BaseResultMap" >
+    select item_id, created, updated, item_desc
+    from tb_item_desc where item_id = #{itemId}
+  </select>
 </mapper>

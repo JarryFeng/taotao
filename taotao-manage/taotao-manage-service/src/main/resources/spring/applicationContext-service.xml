@@ -54,4 +54,5 @@
     <dubbo:protocol name="dubbo" port="20880" />
     <!-- 申明需要暴露的服务接口 -->
     <dubbo:service interface="com.jarry.service.ItemService" ref="itemServiceImpl" />
+    <dubbo:service interface="com.jarry.service.ItemCategoryService" ref="itemCategoryServiceImpl" />
 </beans>
