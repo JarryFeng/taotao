@@ -1,46 +1,142 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.jarry.mapper.TbContentCategoryMapper" >
-  <resultMap id="BaseResultMap" type="com.jarry.pojo.TbContentCategory" >
-    <id column="id" property="id" jdbcType="BIGINT" />
-    <result column="parent_id" property="parentId" jdbcType="BIGINT" />
-    <result column="name" property="name" jdbcType="VARCHAR" />
-    <result column="status" property="status" jdbcType="INTEGER" />
-    <result column="sort_order" property="sortOrder" jdbcType="INTEGER" />
-    <result column="is_parent" property="isParent" jdbcType="BIT" />
-    <result column="created" property="created" jdbcType="TIMESTAMP" />
-    <result column="updated" property="updated" jdbcType="TIMESTAMP" />
-  </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
-    delete from tb_content_category
-    where id = #{id,jdbcType=BIGINT}
-  </delete>
-  <insert id="insert" parameterType="com.jarry.pojo.TbContentCategory" >
-    insert into tb_content_category (id, parent_id, name, 
-      status, sort_order, is_parent, 
-      created, updated)
-    values (#{id,jdbcType=BIGINT}, #{parentId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, 
-      #{status,jdbcType=INTEGER}, #{sortOrder,jdbcType=INTEGER}, #{isParent,jdbcType=BIT}, 
-      #{created,jdbcType=TIMESTAMP}, #{updated,jdbcType=TIMESTAMP})
-  </insert>
-  <update id="updateByPrimaryKey" parameterType="com.jarry.pojo.TbContentCategory" >
-    update tb_content_category
-    set parent_id = #{parentId,jdbcType=BIGINT},
-      name = #{name,jdbcType=VARCHAR},
-      status = #{status,jdbcType=INTEGER},
-      sort_order = #{sortOrder,jdbcType=INTEGER},
-      is_parent = #{isParent,jdbcType=BIT},
-      created = #{created,jdbcType=TIMESTAMP},
-      updated = #{updated,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=BIGINT}
-  </update>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select id, parent_id, name, status, sort_order, is_parent, created, updated
-    from tb_content_category
-    where id = #{id,jdbcType=BIGINT}
-  </select>
-  <select id="selectAll" resultMap="BaseResultMap" >
-    select id, parent_id, name, status, sort_order, is_parent, created, updated
-    from tb_content_category
-  </select>
+<mapper namespace="com.jarry.mapper.TbContentCategoryMapper">
+    <resultMap id="BaseResultMap" type="com.jarry.pojo.TbContentCategory">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="parent_id" property="parentId" jdbcType="BIGINT"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="INTEGER"/>
+        <result column="sort_order" property="sortOrder" jdbcType="INTEGER"/>
+        <result column="is_parent" property="isParent" jdbcType="BIT"/>
+        <result column="created" property="created" jdbcType="TIMESTAMP"/>
+        <result column="updated" property="updated" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete
+        from tb_content_category
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" parameterType="com.jarry.pojo.TbContentCategory">
+        <!--
+        keyProperty	    语句结果应该被设置的目标属性。
+        resultType	    结果的类型。MyBatis 通常可以算出来,但是写上也没有问题。MyBatis 允许任何简单类型用作主键的类型,包括字符串。
+        order	        这可以被设置为 BEFORE 或 AFTER。如果设置为 BEFORE,那么它会首先选择主键,设置 keyProperty 然后执行插入语句。如果设置为 AFTER,那么先执行插入语句,然后是 selectKey 元素-这和如 Oracle 数据库相似,可以在插入语句中嵌入序列调用。
+        statementType	和前面的相同,MyBatis 支持 STATEMENT ,PREPARED 和CALLABLE 语句的映射类型,分别代表 PreparedStatement 和CallableStatement 类型。
+        -->
+        <selectKey keyProperty="id" resultType="long" order="AFTER">
+            select LAST_INSERT_ID()
+        </selectKey>
+        insert into tb_content_category (id, parent_id, name,
+                                         status, sort_order, is_parent,
+                                         created, updated)
+        values (#{id,jdbcType=BIGINT}, #{parentId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR},
+                #{status,jdbcType=INTEGER}, #{sortOrder,jdbcType=INTEGER}, #{isParent,jdbcType=BIT},
+                #{created,jdbcType=TIMESTAMP}, #{updated,jdbcType=TIMESTAMP})
+
+
+    </insert>
+    <update id="updateByPrimaryKey" parameterType="com.jarry.pojo.TbContentCategory">
+        update tb_content_category
+
+        <set>
+            <if test="parentId != null">
+                parent_id = #{parentId,jdbcType=BIGINT},
+            </if>
+
+            <if test="name != null and name !=''">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+
+            <if test="sortOrder != null">
+                sort_order = #{sortOrder,jdbcType=INTEGER},
+            </if>
+
+            <if test="isParent != null">
+                is_parent = #{isParent,jdbcType=BIT},
+            </if>
+
+            <if test="created != null">
+                created = #{created,jdbcType=TIMESTAMP},
+            </if>
+            updated = now()
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select id,
+               parent_id,
+               name,
+               status,
+               sort_order,
+               is_parent,
+               created,
+               updated
+        from tb_content_category
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+        select id,
+               parent_id,
+               name,
+               status,
+               sort_order,
+               is_parent,
+               created,
+               updated
+        from tb_content_category
+    </select>
+
+    <select id="selectByCondition" resultMap="BaseResultMap" parameterType="com.jarry.pojo.TbContentCategory">
+        select id,
+        parent_id,
+        name,
+        status,
+        sort_order,
+        is_parent,
+        created,
+        updated
+        from tb_content_category
+        <where>
+            <if test="id !=null">
+                id = #{id,jdbcType=BIGINT}
+            </if>
+
+            <if test="parentId !=null">
+                and parent_id = #{parentId,jdbcType=BIGINT}
+            </if>
+
+            <if test="name !=null and name !=''">
+                and name = #{name,jdbcType=VARCHAR}
+            </if>
+
+            <if test="status != null">
+                and status = #{status,jdbcType=INTEGER}
+            </if>
+
+            <if test="sortOrder != null">
+                and sort_order = #{sortOrder,jdbcType=INTEGER}
+            </if>
+
+            <if test="isParent != null">
+                and is_parent = #{isParent,jdbcType=BIT}
+            </if>
+
+            <if test="created != null">
+                <![CDATA[and created >= #{created,jdbcType=TIMESTAMP}]]>
+            </if>
+
+            <if test="updated != null">
+                <![CDATA[and updated <= #{updated,jdbcType=TIMESTAMP}]]>
+            </if>
+
+        </where>
+
+    </select>
+
 </mapper>

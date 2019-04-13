@@ -1,56 +1,83 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.jarry.mapper.TbContentMapper" >
-  <resultMap id="BaseResultMap" type="com.jarry.pojo.TbContent" >
-    <id column="id" property="id" jdbcType="BIGINT" />
-    <result column="category_id" property="categoryId" jdbcType="BIGINT" />
-    <result column="title" property="title" jdbcType="VARCHAR" />
-    <result column="sub_title" property="subTitle" jdbcType="VARCHAR" />
-    <result column="title_desc" property="titleDesc" jdbcType="VARCHAR" />
-    <result column="url" property="url" jdbcType="VARCHAR" />
-    <result column="pic" property="pic" jdbcType="VARCHAR" />
-    <result column="pic2" property="pic2" jdbcType="VARCHAR" />
-    <result column="created" property="created" jdbcType="TIMESTAMP" />
-    <result column="updated" property="updated" jdbcType="TIMESTAMP" />
-    <result column="content" property="content" jdbcType="LONGVARCHAR" />
-  </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
-    delete from tb_content
-    where id = #{id,jdbcType=BIGINT}
-  </delete>
-  <insert id="insert" parameterType="com.jarry.pojo.TbContent" >
-    insert into tb_content (id, category_id, title, 
-      sub_title, title_desc, url, 
-      pic, pic2, created, 
-      updated, content)
-    values (#{id,jdbcType=BIGINT}, #{categoryId,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, 
-      #{subTitle,jdbcType=VARCHAR}, #{titleDesc,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, 
-      #{pic,jdbcType=VARCHAR}, #{pic2,jdbcType=VARCHAR}, #{created,jdbcType=TIMESTAMP}, 
-      #{updated,jdbcType=TIMESTAMP}, #{content,jdbcType=LONGVARCHAR})
-  </insert>
-  <update id="updateByPrimaryKey" parameterType="com.jarry.pojo.TbContent" >
-    update tb_content
-    set category_id = #{categoryId,jdbcType=BIGINT},
-      title = #{title,jdbcType=VARCHAR},
-      sub_title = #{subTitle,jdbcType=VARCHAR},
-      title_desc = #{titleDesc,jdbcType=VARCHAR},
-      url = #{url,jdbcType=VARCHAR},
-      pic = #{pic,jdbcType=VARCHAR},
-      pic2 = #{pic2,jdbcType=VARCHAR},
-      created = #{created,jdbcType=TIMESTAMP},
-      updated = #{updated,jdbcType=TIMESTAMP},
-      content = #{content,jdbcType=LONGVARCHAR}
-    where id = #{id,jdbcType=BIGINT}
-  </update>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select id, category_id, title, sub_title, title_desc, url, pic, pic2, created, updated, 
-    content
-    from tb_content
-    where id = #{id,jdbcType=BIGINT}
-  </select>
-  <select id="selectAll" resultMap="BaseResultMap" >
-    select id, category_id, title, sub_title, title_desc, url, pic, pic2, created, updated, 
-    content
-    from tb_content
-  </select>
+<mapper namespace="com.jarry.mapper.TbContentMapper">
+    <resultMap id="BaseResultMap" type="com.jarry.pojo.TbContent">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="category_id" property="categoryId" jdbcType="BIGINT"/>
+        <result column="title" property="title" jdbcType="VARCHAR"/>
+        <result column="sub_title" property="subTitle" jdbcType="VARCHAR"/>
+        <result column="title_desc" property="titleDesc" jdbcType="VARCHAR"/>
+        <result column="url" property="url" jdbcType="VARCHAR"/>
+        <result column="pic" property="pic" jdbcType="VARCHAR"/>
+        <result column="pic2" property="pic2" jdbcType="VARCHAR"/>
+        <result column="created" property="created" jdbcType="TIMESTAMP"/>
+        <result column="updated" property="updated" jdbcType="TIMESTAMP"/>
+        <result column="content" property="content" jdbcType="LONGVARCHAR"/>
+    </resultMap>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete
+        from tb_content
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" parameterType="com.jarry.pojo.TbContent">
+        insert into tb_content (id, category_id, title,
+                                sub_title, title_desc, url,
+                                pic, pic2, created,
+                                updated, content)
+        values (#{id,jdbcType=BIGINT}, #{categoryId,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR},
+                #{subTitle,jdbcType=VARCHAR}, #{titleDesc,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR},
+                #{pic,jdbcType=VARCHAR}, #{pic2,jdbcType=VARCHAR}, #{created,jdbcType=TIMESTAMP},
+                #{updated,jdbcType=TIMESTAMP}, #{content,jdbcType=LONGVARCHAR})
+    </insert>
+    <update id="updateByPrimaryKey" parameterType="com.jarry.pojo.TbContent">
+        update tb_content
+        set category_id = #{categoryId,jdbcType=BIGINT},
+            title       = #{title,jdbcType=VARCHAR},
+            sub_title   = #{subTitle,jdbcType=VARCHAR},
+            title_desc  = #{titleDesc,jdbcType=VARCHAR},
+            url         = #{url,jdbcType=VARCHAR},
+            pic         = #{pic,jdbcType=VARCHAR},
+            pic2        = #{pic2,jdbcType=VARCHAR},
+            created     = #{created,jdbcType=TIMESTAMP},
+            updated     = #{updated,jdbcType=TIMESTAMP},
+            content     = #{content,jdbcType=LONGVARCHAR}
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select id,
+               category_id,
+               title,
+               sub_title,
+               title_desc,
+               url,
+               pic,
+               pic2,
+               created,
+               updated,
+               content
+        from tb_content
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+        select id,
+               category_id,
+               title,
+               sub_title,
+               title_desc,
+               url,
+               pic,
+               pic2,
+               created,
+               updated,
+               content
+        from tb_content
+    </select>
+
+    <select id="selectByCatagoryId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+        select id, category_id, title, sub_title, title_desc, url, pic, pic2, created, updated,
+               content
+        from tb_content
+        where category_id = #{categoryId,jdbcType=BIGINT}
+    </select>
+
 </mapper>

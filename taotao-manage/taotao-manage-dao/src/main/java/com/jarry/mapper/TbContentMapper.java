@@ -14,4 +14,6 @@ public interface TbContentMapper {
     List<TbContent> selectAll();
 
     int updateByPrimaryKey(TbContent record);
+
+    List<TbContent> selectByCatagoryId(Long catagoryId);
 }
