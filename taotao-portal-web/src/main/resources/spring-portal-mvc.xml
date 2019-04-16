@@ -15,6 +15,7 @@
     <!-- 注解驱动 -->
     <mvc:annotation-driven/>
 
+    <context:property-placeholder location="classpath:AD.properties" />
 
      <!-- 视图解析器 -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -29,8 +30,7 @@
     <dubbo:registry protocol="zookeeper" address="127.0.0.1:2181"/>
 
     <!-- 获取服务 -->
-    <!--<dubbo:reference interface="com.jarry.service.ItemService" id="itemSerivce"/>
-    <dubbo:reference interface="com.jarry.service.ItemCategoryService" id="itemCategoryService"/>-->
+    <dubbo:reference interface="com.jarry.content.service.TbContentService" id="tbContentService"/>
 
 
 </beans>
